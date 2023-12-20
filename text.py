@@ -39,15 +39,20 @@ uploaded_file = st.sidebar.file_uploader("Upload documents", type="pdf")
 if uploaded_file is None:
   st.info("""Upload files to analyse""")
 elif uploaded_file  is not None:
-
-    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-        tmp_file.write(uploaded_file.getvalue())
-        tmp_file_path = tmp_file.name
+    docs = []
+    reader = PdfReader(uploaded_file)
+    i = 1
+    for page in reader.pages:
+        docs.append(Document(page_content=page.extract_text(), metadata={'page':i}))
+        i += 1
+    #with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
+        #tmp_file.write(uploaded_file.getvalue())
+        #tmp_file_path = tmp_file.name
 
     #loader = CSVLoader(file_path=tmp_file_path, encoding="utf-8", csv_args={'delimiter': ','})
-    reader = PyPDFLoader(file_path=tmp_file_path)  
+    #reader = PyPDFLoader(file_path=tmp_file_path)  
       
-    data = reader.load_and_split()
+    #data = reader.load_and_split()
     
 #st.header("MEDBOT")
 #st.write("---")
