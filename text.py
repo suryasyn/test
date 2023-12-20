@@ -19,6 +19,7 @@ from operator import itemgetter
 from langchain_core.runnables import RunnableParallel
 from langchain.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.messages import AIMessage, HumanMessage
+from langchain.docstore.document import Document
 from streamlit_chat import message
 import tempfile
 import PyPDF2
@@ -30,18 +31,29 @@ pinecone.init(api_key='d49011f7-9f67-4f17-a092-38a22e0cbe83', environment='gcp-s
 llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0)
 #index = pinecone.Index('chatbot')
 uploaded_file = st.sidebar.file_uploader("Upload documents", type="pdf")
+if uploaded_file is not None:
+    docs = []
+    reader = PdfReader(uploaded_file)
+    i = 1
+    for page in reader.pages:
+        docs.append(Document(page_content=page.extract_text(), metadata={'page':i}))
+        i += 1
 if uploaded_file is None:
   st.info("""Upload files to analyse""")
-elif uploaded_file :
+elif uploaded_file  is not None:
 
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
         tmp_file.write(uploaded_file.getvalue())
         tmp_file_path = tmp_file.name
 
     #loader = CSVLoader(file_path=tmp_file_path, encoding="utf-8", csv_args={'delimiter': ','})
-    loader = PyPDFLoader(file_path=tmp_file_path)  
+    reader = PyPDFLoader(file_path=tmp_file_path)  
       
-    data = loader.load_and_split()
+    #pages = reader.load_and_split()
+     i = 1
+    for page in reader.pages:
+        docs.append(Document(page_content=page.extract_text(), metadata={'page':i}))
+        i += 1
 #st.header("MEDBOT")
 #st.write("---")
 #uploaded_files = st.file_uploader("Upload documents",accept_multiple_files=True, type=["pdf"])
@@ -56,9 +68,7 @@ elif uploaded_file :
        # )
    # },
 #)
-docs = loader.load()
-
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+#docs = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000, chunk_overlap=200, add_start_index=True
