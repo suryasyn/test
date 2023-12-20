@@ -31,13 +31,11 @@ pinecone.init(api_key='d49011f7-9f67-4f17-a092-38a22e0cbe83', environment='gcp-s
 llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0)
 #index = pinecone.Index('chatbot')
 uploaded_file = st.sidebar.file_uploader("Upload documents", type="pdf")
-if uploaded_file is not None:
-    docs = []
-    reader = PdfReader(uploaded_file)
-    i = 1
-    for page in reader.pages:
-        docs.append(Document(page_content=page.extract_text(), metadata={'page':i}))
-        i += 1
+
+    #i = 1
+    #for page in reader.pages:
+        #docs.append(Document(page_content=page.extract_text(), metadata={'page':i}))
+        #i += 1
 if uploaded_file is None:
   st.info("""Upload files to analyse""")
 elif uploaded_file  is not None:
@@ -50,10 +48,7 @@ elif uploaded_file  is not None:
     reader = PyPDFLoader(file_path=tmp_file_path)  
       
     pages = reader.load_and_split()
-     #i = 1
-    #for page in reader.pages:
-        #docs.append(Document(page_content=page.extract_text(), metadata={'page':i}))
-        3i += 1
+    
 #st.header("MEDBOT")
 #st.write("---")
 #uploaded_files = st.file_uploader("Upload documents",accept_multiple_files=True, type=["pdf"])
@@ -71,8 +66,7 @@ elif uploaded_file  is not None:
 #docs = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000, chunk_overlap=200, add_start_index=True
-)
+    chunk_size=1000, chunk_overlap=200, add_start_index=True)
 all_splits = text_splitter.split_documents(pages)
 
 vectorstore = Pinecone.from_documents(documents=all_splits, embedding=OpenAIEmbeddings(), index_name='chatbot')
