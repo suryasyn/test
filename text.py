@@ -11,7 +11,7 @@ if 'generated' not in st.session_state:
     st.session_state['generated'] = ["Hello"]
 
 if 'past' not in st.session_state:
-    st.session_state['past'] = ["Hey"]
+    st.session_state['past'] = []
 
 response_container = st.container()
 container = st.container()
