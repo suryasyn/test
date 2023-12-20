@@ -72,7 +72,7 @@ elif uploaded_file  is not None:
 
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000, chunk_overlap=200, add_start_index=True)
-all_splits = text_splitter.split_documents(data)
+all_splits = text_splitter.split_documents(docs)
 
 vectorstore = Pinecone.from_documents(documents=all_splits, embedding=OpenAIEmbeddings(), index_name='chatbot')
 
