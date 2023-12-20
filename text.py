@@ -1,3 +1,4 @@
+import os
 os.environ["OPENAI_API_KEY"] = "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"
 
 # import dotenv
