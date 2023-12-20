@@ -27,7 +27,7 @@ import pinecone
 
 
 pinecone.init(api_key='d49011f7-9f67-4f17-a092-38a22e0cbe83', environment='gcp-starter')
-llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+llm = ChatOpenAI(model_name="gpt-3.5-turbo-16k", temperature=0)
 #index = pinecone.Index('chatbot')
 uploaded_file = st.sidebar.file_uploader("Upload documents", type="pdf")
 if uploaded_file is None:
