@@ -191,7 +191,7 @@ with container:
         submit_button = st.form_submit_button(label='Send')
         
     if submit_button and user_input:
-        output = add_character(user_input)
+        output = rag_chain_with_source.invoke({"question": user_input, "chat_history": chat_history})
 
         st.session_state['history'].append(user_input)
         st.session_state['generated'].append(output)
