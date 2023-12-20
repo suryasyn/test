@@ -1,7 +1,3 @@
-import streamlit as st
-from streamlit_chat import message
-import os
-
 os.environ["OPENAI_API_KEY"] = "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"
 
 # import dotenv
