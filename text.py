@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_chat import message
+
 def add_character(text):
     character = "!"
     return text + character
@@ -31,6 +32,6 @@ with container:
 if st.session_state['generated']:
     with response_container:
         for i in range(len(st.session_state['generated'])):
-            message(st.session_state['history'][i+1], is_user=True, key=str(i) + '_user')
+            #message(st.session_state['history'][i], is_user=True,
             #message(st.session_state["history"][i], is_user=True, key=str(i) + '_user')
             message(st.session_state["generated"][i], key=str(i))
