@@ -1,2 +1,9 @@
 streamlit
 streamlit_chat
+langchain
+openai
+pinecone-client
+tiktoken
+pyPDF2
+langchainhub
+bs4
