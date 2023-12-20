@@ -30,9 +30,12 @@ with container:
         st.session_state['generated'].append(output)
 
 if st.session_state['generated']:
-    with response_container:
+    with response_container
         for i in range(len(st.session_state['generated'])):
-            st.write(f"Generated: {st.session_state['generated'][i]}")
-            st.write(f"User: {st.session_state['history'][i]}")
+            message(st.session_state["generated"][i], key=str(i))
+            message(st.session_state["history"][i], is_user=True, key=str(i) + '_user')
+        
+            #st.write(f"Generated: {st.session_state['generated'][i]}")
+            #st.write(f"User: {st.session_state['history'][i]}")
             
 
