@@ -49,11 +49,11 @@ elif uploaded_file  is not None:
     #loader = CSVLoader(file_path=tmp_file_path, encoding="utf-8", csv_args={'delimiter': ','})
     reader = PyPDFLoader(file_path=tmp_file_path)  
       
-    #pages = reader.load_and_split()
-     i = 1
-    for page in reader.pages:
-        docs.append(Document(page_content=page.extract_text(), metadata={'page':i}))
-        i += 1
+    pages = reader.load_and_split()
+     #i = 1
+    #for page in reader.pages:
+        #docs.append(Document(page_content=page.extract_text(), metadata={'page':i}))
+        3i += 1
 #st.header("MEDBOT")
 #st.write("---")
 #uploaded_files = st.file_uploader("Upload documents",accept_multiple_files=True, type=["pdf"])
@@ -73,7 +73,7 @@ elif uploaded_file  is not None:
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size=1000, chunk_overlap=200, add_start_index=True
 )
-all_splits = text_splitter.split_documents(data)
+all_splits = text_splitter.split_documents(pages)
 
 vectorstore = Pinecone.from_documents(documents=all_splits, embedding=OpenAIEmbeddings(), index_name='chatbot')
 
