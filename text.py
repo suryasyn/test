@@ -32,6 +32,6 @@ with container:
 if st.session_state['generated']:
     with response_container:
         for i in range(len(st.session_state['generated'])):
-            #message(st.session_state['history'][i], is_user=True,
-            #message(st.session_state["history"][i], is_user=True, key=str(i) + '_user')
-            message(st.session_state["generated"][i], key=str(i))
+            st.write(f"User: {st.session_state['history'][i]}")
+            st.write(f"Generated: {st.session_state['generated'][i]}")
+
