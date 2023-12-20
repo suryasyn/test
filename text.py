@@ -22,7 +22,7 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langchain.docstore.document import Document
 from streamlit_chat import message
 import tempfile
-import PyPDF2
+from PyPDF2 import Pdfreader
 import pinecone
 #import bs4
 
